@@ -1,0 +1,79 @@
+{
+    // Define Temas:
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Omni Dracula Theme Traditional Contrast",
+    
+    // Define fontes
+    "editor.fontSize": 18,
+    "editor.fontFamily": "Fira Code",
+    "terminal.integrated.fontSize": 22,
+    "terminal.integrated.fontFamily": "MesloLGS NF",
+
+    // Customização do Tema "Omni Dracula Theme Traditional Contrast" part 1:
+    "editor.semanticTokenColorCustomizations": {
+        "[Omni Dracula Theme Traditional Contrast]": {
+            "enabled": true,
+            "rules": {
+                "variable.readonly": "#0080ff",
+                "variable": "#eab676",
+                "function": "#6ecada",
+                "class": "#bfe3ab"
+            }
+        }
+    },
+    
+    // Customização do Tema "Omni Dracula Theme Traditional Contrast" part 2:
+    "editor.tokenColorCustomizations": {
+        
+        "[Omni Dracula Theme Traditional Contrast]": {
+            "comments": "#6d8690",
+            "keywords": "#c94966",
+            "numbers": "#d87cc0",
+            "strings": "#d7772e",
+            "textMateRules": [
+                {
+                    "scope": "string.quoted.docstring.multi.python",
+                    "settings": {"foreground": "#6d8690"}
+                },
+                {
+                    "scope": "string.quoted.docstring.multi.python punctuation.definition.string.begin.python",
+                    "settings": {"foreground": "#6d8690"}
+                },
+                {
+                    "scope": "string.quoted.docstring.multi.python punctuation.definition.string.end.python",
+                    "settings": {"foreground": "#6d8690"}
+                },
+                {
+                    "scope": "string.quoted.double",
+                    "settings": {"foreground": "#ff8000"}
+                },
+                {
+                    "scope": "punctuation.definition.string.end.python",
+                    "settings": {"foreground": "#c94966"}
+                },
+                {
+                    "scope": "punctuation.definition.string.begin.python",
+                    "settings": {"foreground": "#c94966"}
+                }
+            ]
+        }
+    },
+
+    // Configurações da Extensão Jupyter
+    "notebook.cellToolbarVisibility": "hover",
+    "notebook.output.textLineLimit": 100,
+    "jupyter.themeMatplotlibPlots": true,
+    "jupyter.sendSelectionToInteractiveWindow": true,
+
+    // Configurações da Extensão PowerMode
+    "powermode.enabled": true,
+    "powermode.combo.location": "off",
+
+    // Configurações da Extensão Python
+    "[python]": {
+        "editor.formatOnType": true
+    },
+
+    // Configurações do Vscode
+    "workbench.sideBar.location": "right",
+}
