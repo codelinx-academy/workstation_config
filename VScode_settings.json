@@ -6,6 +6,7 @@
     // Define fontes
     "editor.fontSize": 18,
     "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
     "terminal.integrated.fontSize": 22,
     "terminal.integrated.fontFamily": "MesloLGS NF",
 
