@@ -1,0 +1,7 @@
+### ERROR systemclt ####
+git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
+cd ubuntu-wsl2-systemd-script/
+bash ubuntu-wsl2-systemd-script.sh 
+
+# Finalizando feche o e desligue o WSL no powershell (ADM)
+wls --shutdown -d namedistro
