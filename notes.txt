@@ -1,0 +1,17 @@
+1. sudo apt update && sudo apt upgrade -y
+2. sudo apt install git curl -y
+3. sudo apt install gnome-tweaks -y
+4. sudo apt install zsh -y
+5. sudo chsh -s /bin/zsh
+6. sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+7. git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+8. sudo mkdir ~/.fonts #MesloLGS NF Regular
+9. git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+10. vim .zsh... #ZSH_THEME="powerlevel10k/powerlevel10k" #plugins=(git zsh-syntax-highlighting).
+
+
+### ERROR ####
+https://github.com/DamionGans/ubuntu-wsl2-systemd-script
+
+
+#https://www.youtube.com/watch?v=PZTLIVQxxEY
