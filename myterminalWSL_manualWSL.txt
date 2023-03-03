@@ -9,12 +9,3 @@
 8. sudo mkdir ~/.fonts #MesloLGS NF Regular
 9. sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 10. sed -i 's#^ZSH_THEME=.*#ZSH_THEME="powerlevel10k/powerlevel10k"#' ~/.zshrc && sed -i 's#^plugins=.*#plugins=(git zsh-syntax-highlighting)#' ~/.zshrc
-
-
-### ERROR systemclt ####
-git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git
-cd ubuntu-wsl2-systemd-script/
-bash ubuntu-wsl2-systemd-script.sh 
-
-# Finalizando feche o e desligue o WSL no powershell (ADM)
-wls --shutdown -d namedistro
