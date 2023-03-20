@@ -2,7 +2,7 @@
     // Define Temas:
     "workbench.iconTheme": "material-icon-theme",
     "workbench.colorTheme": "Omni Dracula Theme Traditional Contrast",
-    
+
     // Define fontes
     "editor.fontSize": 18,
     "editor.fontFamily": "Fira Code",
@@ -22,10 +22,10 @@
             }
         }
     },
-    
+
     // Customização do Tema "Omni Dracula Theme Traditional Contrast" part 2:
     "editor.tokenColorCustomizations": {
-        
+
         "[Omni Dracula Theme Traditional Contrast]": {
             "comments": "#6d8690",
             "keywords": "#c94966",
@@ -64,7 +64,9 @@
     "notebook.cellToolbarVisibility": "hover",
     "notebook.output.textLineLimit": 100,
     "jupyter.themeMatplotlibPlots": true,
-    "jupyter.sendSelectionToInteractiveWindow": true,
+    "jupyter.interactiveWindow.textEditor.executeSelection": true,
+    "notebook.lineNumbers": "on",
+    "markdown.preview.fontSize": 16,
 
     // Configurações da Extensão PowerMode
     "powermode.enabled": true,
@@ -77,4 +79,6 @@
 
     // Configurações do Vscode
     "workbench.sideBar.location": "right",
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.startupEditor": "none",
 }
