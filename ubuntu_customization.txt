@@ -1,9 +1,0 @@
-icon: download.zip -> https://github.com/yeyushengfan258/Reversal-icon-theme (./install.sh -red or -black)
-
-cursor: download.zip -> https://github.com/vinceliuice/Vimix-cursors (./install.sh)
-
-gtk_theme: download.zip -> https://github.com/vinceliuice/WhiteSur-gtk-theme (./install -t red)
-
-background: download.zip -> https://www.pling.com/p/1939902/ (.local/share)
-
-Orchis-shell-MOD: download.zip -> https://www.pling.com/p/1939902/ (.themes)
