@@ -1,52 +1,69 @@
 {
     // Define Temas:
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Omni Dracula Theme Traditional Contrast",
-
+    "workbench.iconTheme": "catppuccin-perfect-latte",
+    
     // Define fontes
-    "editor.fontSize": 18,
+    "editor.fontSize": 20,
     "editor.fontFamily": "Fira Code",
     "editor.fontLigatures": true,
     "terminal.integrated.fontSize": 18,
     "terminal.integrated.fontFamily": "MesloLGS NF",
-
-    // Customização do Tema "Omni Dracula Theme Traditional Contrast" part 1:
+    
+    
+    // Customização do Tema - part 1:
     "editor.semanticTokenColorCustomizations": {
-        "[Omni Dracula Theme Traditional Contrast]": {
+        
+        "[Catppuccin Latte]": {
             "enabled": true,
             "rules": {
                 "variable.readonly": "#0080ff",
+                // "variable": "#eab676",
+                "function": "#2b90a1",
+                "class": "#bfe3ab",
+                "module": "#4d4e69",
+                "property": "#268191",
+                "method": "#2b90a1"
+            }
+        },
+        "[Catppuccin Mocha]": {
+            "enabled": true,
+            "rules": {
+                "variable.readonly": "#ff005d",
                 "variable": "#eab676",
-                "function": "#6ecada",
-                "class": "#bfe3ab"
+                "function": "#2b90a1",
+                "class": "#bfe3ab",
+                "module": "#cfd0e7",
+                "property": "#268191",
+                "method": "#2b90a1"
             }
         }
     },
-
-    // Customização do Tema "Omni Dracula Theme Traditional Contrast" part 2:
+    
+    // Customização do Tema - part 2:
     "editor.tokenColorCustomizations": {
 
-        "[Omni Dracula Theme Traditional Contrast]": {
-            "comments": "#6d8690",
-            "keywords": "#c94966",
+        "[Catppuccin Latte]": {
+            "comments": "#7f98a0",
+            "keywords": "#b9526a",
             "numbers": "#d87cc0",
-            "strings": "#d7772e",
+            "strings": "#dc7d34",
+
             "textMateRules": [
                 {
                     "scope": "string.quoted.docstring.multi.python",
-                    "settings": {"foreground": "#6d8690"}
+                    "settings": {"foreground": "#7f98a0"}
                 },
                 {
                     "scope": "string.quoted.docstring.multi.python punctuation.definition.string.begin.python",
-                    "settings": {"foreground": "#6d8690"}
+                    "settings": {"foreground": "#7f98a0"}
                 },
                 {
                     "scope": "string.quoted.docstring.multi.python punctuation.definition.string.end.python",
-                    "settings": {"foreground": "#6d8690"}
+                    "settings": {"foreground": "#7f98a0"}
                 },
                 {
                     "scope": "string.quoted.double",
-                    "settings": {"foreground": "#ff8000"}
+                    "settings": {"foreground": "#dc7d34"}
                 },
                 {
                     "scope": "punctuation.definition.string.end.python",
@@ -55,15 +72,54 @@
                 {
                     "scope": "punctuation.definition.string.begin.python",
                     "settings": {"foreground": "#c94966"}
-                }
+                },
             ]
+        },
+        "[Catppuccin Mocha]": {
+            "comments": "#7f98a0",
+            "keywords": "#b9526a",
+            "numbers": "#d87cc0",
+            "strings": "#dc7d34",
+
+            "textMateRules": [
+                {
+                    "scope": "string.quoted.docstring.multi.python",
+                    "settings": {"foreground": "#7f98a0"}
+                },
+                {
+                    "scope": "string.quoted.docstring.multi.python punctuation.definition.string.begin.python",
+                    "settings": {"foreground": "#7f98a0"}
+                },
+                {
+                    "scope": "string.quoted.docstring.multi.python punctuation.definition.string.end.python",
+                    "settings": {"foreground": "#7f98a0"}
+                },
+                {
+                    "scope": "string.quoted.double",
+                    "settings": {"foreground": "#dc7d34"}
+                },
+                {
+                    "scope": "punctuation.definition.string.end.python",
+                    "settings": {"foreground": "#c94966"}
+                },
+                {
+                    "scope": "punctuation.definition.string.begin.python",
+                    "settings": {"foreground": "#c94966"}
+                },
+            ]
+        }
+    },
+
+    // Customização do Tema - part 3:
+    "workbench.colorCustomizations": {
+        "[Catppuccin Latte]": {
+            "editor.selectionBackground": "#97ceaf",
         }
     },
 
     // Configurações da Extensão Jupyter
     "notebook.cellToolbarVisibility": "hover",
     "notebook.output.textLineLimit": 50,
-    "jupyter.themeMatplotlibPlots": true,
     "jupyter.interactiveWindow.textEditor.executeSelection": true,
     "notebook.lineNumbers": "on",
     "markdown.preview.fontSize": 16,
@@ -71,14 +127,13 @@
     // Configurações da Extensão PowerMode
     "powermode.enabled": true,
     "powermode.combo.location": "off",
-
+    
     // Configurações da Extensão Python
     "[python]": {
         "editor.formatOnType": true
     },
 
-    // Configurações do Vscode
-    "workbench.sideBar.location": "right",
+    // Others
     "security.workspace.trust.untrustedFiles": "open",
     "workbench.startupEditor": "none",
     "git.enableSmartCommit": true,
@@ -88,5 +143,10 @@
     "notebook.output.fontFamily": "Fira Code",
     "notebook.output.scrolling": true,
     "git.openRepositoryInParentFolders": "always",
-    "breadcrumbs.enabled": false
+    "breadcrumbs.enabled": false,
+    "workbench.sideBar.location": "right",
+    "jupyter.interactiveWindow.creationMode": "perFile",
+    "notebook.cellFocusIndicator": "border",
+    "git.ignoreMissingGitWarning": true,
+    "workbench.colorTheme": "Catppuccin Mocha"
 }
