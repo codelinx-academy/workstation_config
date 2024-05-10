@@ -1,0 +1,35 @@
+01. criar pasta "Vagrant" em documentos
+02. adicionar no final do .zshrc:
+# Environment Variable for use VirtualBox on Windows Host (Vagrant)
+export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+export PATH="$PATH:/mnt/c/Program\ Files/Oracle/VirtualBox"
+export VAGRANT_WSL_WINDOWS_ACCESS_USER_HOME_PATH="/mnt/c/Users/ihanm/Documents/Vagrant"
+
+03. lincar usando
+ln -s /mnt/c/Users/ihanm/Documents/Vagrant Vagrant
+
+04. aplicar lab:
+Vagrant.configure("2") do |config|
+
+  def define_vm(config, name, box, manager)
+    config.vm.define name do |vm|
+      vm.vm.box = box
+      vm.vm.network "public_network", bridge: "Realtek PCIe GbE Family Controller" #Notebook Lenovo LOQ RTX4060
+      vm.vm.provision 'shell', inline: <<-SHELL
+        sudo #{update_cmd} -y update
+        sudo #{install_cmd} -y install openssh-server
+      SHELL
+    end
+  end
+
+  ubuntu_box, apt_ = 'ubuntu/trusty64', 'apt-get'
+  rhel_box, yum_ = 'generic/rhel7', 'yum'
+  fedora_box, dnf_ = 'generic/fedora38', 'dnf'
+
+  define_vm(config, 'WEB01', ubuntu_box, apt_)
+  define_vm(config, 'DBA01', ubuntu_box, apt_)
+  define_vm(config, 'WEB02', rhel_box, yum_)
+  define_vm(config, 'DBA02', rhel_box, yum_)
+  define_vm(config, 'WEB03', fedora_box, dnf_)
+  define_vm(config, 'DBA03', fedora_box, dnf_)
+end
