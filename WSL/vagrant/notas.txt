@@ -10,29 +10,33 @@ ln -s /mnt/c/Users/ihanm/Documents/Vagrant Vagrant
 
 04. aplicar lab:
 Vagrant.configure("2") do |config|
-
-  def define_vm(config, name, box, manager)
-    config.vm.define name do |vm|
-      vm.vm.box = box
-      # vm.vm.network "public_network", bridge: "Realtek PCIe GbE Family Controller" #Notebook Lenovo LOQ RTX4060
+  # Função para definir uma VM.
+  def define_vm(config, name, box_manager)
+    config.vm.define name do |vm| # Define a VM com um nome específico.
+      vm.vm.box = box_manager[0] # Define a imagem da VM.
+    
+      vm.vm.provider "virtualbox" do |vb| # Configurações específicas do VirtualBox.
+        vb.name = name # Nome da VM no VirtualBox.
+      end
+      
+      # Comandos iniciais para a VM.
       vm.vm.provision 'shell', inline: <<-SHELL
-        sudo #{manager} -y #{manager == 'zypper' ? 'refresh' : 'update'}
-        sudo #{manager} -y install openssh-server
+        sudo #{box_manager[1]} -y #{box_manager[1] == 'zypper' ? 'refresh' : 'update'} # Atualiza os pacotes.
+        sudo #{box_manager[1]} -y install openssh-server # Instala o servidor SSH.
       SHELL
     end
   end
 
-  # Distros:
-  vms = [
-    {name: 'WEB01', box: 'ubuntu/trusty64', manager: 'apt-get'},
-    {name: 'DBA01', box: 'ubuntu/trusty64', manager: 'apt-get'},
-    {name: 'WEB02', box: 'generic/rhel7', manager: 'yum'},
-    {name: 'DBA02', box: 'generic/rhel7', manager: 'yum'},
-    {name: 'WEB03', box: 'generic/opensuse42', manager: 'zypper'},
-    {name: 'DBA03', box: 'generic/opensuse42', manager: 'zypper'}
-  ]
+  # Hash com as boxes e gerenciadores de pacotes para diferentes distribuições Linux.
+  distro = {ubuntu_box:['ubuntu/trusty64', 'apt-get'],
+    rhel_box:['generic/rhel7', 'yum'],
+    opensuse_box:['generic/opensuse42', 'zypper']}
 
-  vms.each do |vm|
-    define_vm(config, vm[:name], vm[:box], vm[:manager])
-  end
+  # Define seis VMs com diferentes distribuições Linux.
+  define_vm(config, 'lnx01', distro[:ubuntu_box])
+  define_vm(config, 'lnx02', distro[:ubuntu_box])
+  define_vm(config, 'lnx03', distro[:rhel_box])
+  define_vm(config, 'lnx04', distro[:rhel_box])
+  define_vm(config, 'lnx05', distro[:opensuse_box])
+  define_vm(config, 'lnx06', distro[:opensuse_box])
 end
