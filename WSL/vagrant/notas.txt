@@ -29,14 +29,14 @@ Vagrant.configure("2") do |config|
 
   # Hash com as boxes e gerenciadores de pacotes para diferentes distribuições Linux.
   distro = {ubuntu_box:['ubuntu/trusty64', 'apt-get'],
-    rhel_box:['generic/rhel7', 'yum'],
-    opensuse_box:['generic/opensuse42', 'zypper']}
+    rhel7_box:['generic/rhel7', 'yum'],
+    rhel8_box:['generic/rhel8', 'dnf'],
+    opensuse_box:['generic/opensuse42', 'zypper'],}
 
   # Define seis VMs com diferentes distribuições Linux.
   define_vm(config, 'lnx01', distro[:ubuntu_box])
-  define_vm(config, 'lnx02', distro[:ubuntu_box])
-  define_vm(config, 'lnx03', distro[:rhel_box])
-  define_vm(config, 'lnx04', distro[:rhel_box])
-  define_vm(config, 'lnx05', distro[:opensuse_box])
-  define_vm(config, 'lnx06', distro[:opensuse_box])
+  define_vm(config, 'lnx02', distro[:rhel7_box])
+  define_vm(config, 'lnx03', distro[:rhel8_box])
+  define_vm(config, 'lnx04', distro[:opensuse_box])
 end
+
