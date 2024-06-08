@@ -1,0 +1,163 @@
+- name: Configuração da Estação de Trabalho
+  hosts: localhost
+
+  tasks:
+    - name: Aplicando Configurações iniciais
+      block:
+        - name: Atualização do Sistema Operacional
+          become: true
+          ansible.builtin.apt:
+            update_cache: yes
+            upgrade: dist
+        
+        - name: Instalação de Pacotes Essenciais
+          become: true
+          ansible.builtin.apt:
+            name: '{{ item }}'
+            install_recommends: yes
+            state: present
+          loop:
+            - git
+            - curl
+            - wget
+            - neovim
+            - virtualbox
+            - zsh
+            - gnome-tweaks
+            - texlive
+            - texlive-latex-extra
+            - texlive-xetex
+            - texlive-fonts-recommended
+            - texlive-plain-generic
+            - software-properties-common
+            - apt-transport-https
+            - ca-certificates
+            - pandoc
+            - dconf-cli
+            - gnupg
+            - python3-pip
+
+        - name: Habilitando acentuação
+          block:
+            - name: GTK_IM_MODULE ao /etc/environment
+              become: true
+              lineinfile:
+                path: /etc/environment
+                line: 'GTK_IM_MODULE=cedilla'
+                
+            - name: QT_IM_MODULE ao /etc/environment
+              become: true
+              lineinfile:
+                path: /etc/environment
+                line: 'QT_IM_MODULE=cedilla'
+
+    - name: Configurações do Terminal
+      block:
+        - name: Criação do Diretório de Fontes
+          ansible.builtin.file:
+            path: /home/{{ ansible_env.USER }}/.fonts
+            state: directory
+            
+        - name: Download da Fonte
+          become: true
+          ansible.builtin.get_url:
+            url: https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+            dest: /home/{{ ansible_env.USER }}/.fonts/MesloLGS NF Regular.ttf
+
+        - name: Instalação do Oh_My_ZSH
+          ansible.builtin.shell:
+            cmd: yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+          args:
+            creates: "/home/{{ ansible_env.USER }}/.oh-my-zsh"
+
+        - name: Instalação do Plugin zsh-syntax-highlighting
+          ansible.builtin.git:
+            repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+            dest: /home/{{ ansible_env.USER }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+        - name: Instalação do Tema powerlevel10k
+          ansible.builtin.git:
+            repo: https://github.com/romkatv/powerlevel10k.git
+            dest: /home/{{ ansible_env.USER }}/.oh-my-zsh/custom/themes/powerlevel10k
+
+        - name: Alteração do Shell Padrão para ZSH
+          user: 
+            name: '{{ ansible_env.USER }}'
+            shell: /bin/zsh
+
+        - name: Ativação do Tema powerlevel10k
+          lineinfile:
+            path: /home/{{ ansible_env.USER }}/.zshrc
+            regexp: '^ZSH_THEME='
+            line: 'ZSH_THEME="powerlevel10k/powerlevel10k"'
+
+        - name: Ativação do Plugin Highlighting
+          lineinfile:
+            path: /home/{{ ansible_env.USER }}/.zshrc
+            regexp: '^plugins='
+            line: 'plugins=(git zsh-syntax-highlighting)'
+
+    - name: Ferramentas DevOps 
+      block:
+        - name: VSCODE
+          block:
+            - name: Instalando Microsoft Key
+              ansible.builtin.apt_key:
+                url: 'https://packages.microsoft.com/keys/microsoft.asc'
+                state: present
+            - name: Instalando Repositório do Vscode
+              ansible.builtin.apt_repository:
+                repo: 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main'
+                state: present
+                filename: vscode
+            - name: Instalando Visual Studio Code
+              ansible.builtin.apt:
+                name: code
+
+        - name: DOCKER
+          block:
+            - name: Create directory for Docker's GPG key
+              become: true
+              ansible.builtin.file:
+                path: /etc/apt/keyrings
+                state: directory
+                mode: '0755'
+
+            - name: Install Docker Key
+              become: true
+              ansible.builtin.shell:
+                cmd: curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc | tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+            - name: Install Docker Repository
+              become: true
+              apt_repository:
+                repo: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable'
+                state: present
+                filename: docker
+
+            - name: Install Docker and related packages
+              become: true
+              ansible.builtin.apt:
+                name: "{{ item }}"
+                state: present
+                update_cache: yes
+              loop:
+                - docker-ce
+                - docker-ce-cli
+                - containerd.io
+                - docker-buildx-plugin
+                - docker-compose-plugin
+
+            - name: Add Docker group
+              become: true
+              ansible.builtin.group:
+                name: docker
+                state: present
+
+            - name: Add user to Docker group
+              become: true
+              ansible.builtin.user:
+                name: "{{ ansible_user_id }}"
+                groups: docker
+                append: yes
+...
