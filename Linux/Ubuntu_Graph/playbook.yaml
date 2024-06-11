@@ -81,6 +81,7 @@
             dest: /home/{{ ansible_env.USER }}/.oh-my-zsh/custom/themes/powerlevel10k
 
         - name: Alteração do Shell Padrão para ZSH
+          become: true
           user: 
             name: '{{ ansible_env.USER }}'
             shell: /bin/zsh
@@ -102,31 +103,46 @@
         - name: VSCODE
           block:
             - name: Instalando Microsoft Key
+              become: true
               ansible.builtin.apt_key:
                 url: 'https://packages.microsoft.com/keys/microsoft.asc'
                 state: present
             - name: Instalando Repositório do Vscode
+              become: true
               ansible.builtin.apt_repository:
                 repo: 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main'
                 state: present
                 filename: vscode
             - name: Instalando Visual Studio Code
+              become: true
               ansible.builtin.apt:
                 name: code
 
         - name: DOCKER
           block:
+            - name: Check if Docker key is installed
+              stat:
+                path: /etc/apt/keyrings/docker.asc
+              register: docker_key
+
             - name: Create directory for Docker's GPG key
               become: true
               ansible.builtin.file:
                 path: /etc/apt/keyrings
                 state: directory
                 mode: '0755'
+              when: not docker_key.stat.exists
 
             - name: Install Docker Key
               become: true
               ansible.builtin.shell:
                 cmd: curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc | tee /etc/apt/sources.list.d/docker.list > /dev/null
+              when: not docker_key.stat.exists
+
+            - name: Check if Docker repository is installed
+              stat:
+                path: /etc/apt/sources.list.d/docker.list
+              register: docker_repo
 
             - name: Install Docker Repository
               become: true
@@ -134,6 +150,7 @@
                 repo: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable'
                 state: present
                 filename: docker
+              when: not docker_repo.stat.exists
 
             - name: Install Docker and related packages
               become: true
